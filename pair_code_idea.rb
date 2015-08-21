@@ -117,15 +117,8 @@ end
 
 ####################################
 
-
-people = ['Yana','Harriet','Lucy','Joe','Tim','Sarah','Usman','Matt','Adrian']
-pairing1 = [["Yana", "Joe"],["Joe","Usman"], ["Usman", "Matt"], ["Adrian", "Sarah"], 
-	["Lucy", "Tim"], ["Sarah", "Yana"], ["Lucy", "Matt"], ["Tim", "Usman"], 
-	["Adrian", "Harriet"]]
-
-pairs = {'Joe' => ['Harriet', 'Yana'],'Harriet' => ['Joe', 'Sarah']}
-
-def random_pairing_new(names, pairs)
+def random_pairing_new_with_comments(names, pairs)
+	p names
 	results = []
 	existing_pairs = {}
 	pairs.each do |pairs|
@@ -143,32 +136,82 @@ def random_pairing_new(names, pairs)
 		end
 		
 	end
+	p existing_pairs
+	p 'iteration starts'
 	
-	names.each do |name|
+	while names.length >= 2
+		name = names[0]
 		pair_array = []
 		pair_array << name
 		hat = names - existing_pairs[name]
 		hat.delete(name)
-	
-
 		index = rand(0..hat.length-1)
 		pair_array << hat[index]
+		names.delete(hat[index])
+		names.delete(names[0])	
 		results << pair_array
-	
-
+		existing_pairs[pair_array[0]] << pair_array[1]
+		existing_pairs[pair_array[1]] << pair_array[0]
+		puts ''
+		p 'start this iteration results'
+		p existing_pairs
+		p names
+		p pair_array
+		p results
+		p 'end this iteration results'
+		puts ''
 	end
+	
 	return results 
 end
-# p random_pairing_new(people, pairing1)
 
-array1 = [1,3,4,5,6]
-array2 = [3,4,7]
-p array1.delete(3)
-p array1
+
+#p random_pairing_new_with_comments(people, pairing1)
 
 
 
 
 
+people = ['Yana','Harriet','Lucy','Joe','Tim','Sarah','Usman','Matt','Adrian']
+pairing1 = [["Yana", "Joe"],["Joe","Usman"], ["Usman", "Matt"], ["Adrian", "Sarah"], 
+	["Lucy", "Tim"]]
+pairing2 = [["Sarah", "Yana"], ["Lucy", "Matt"], ["Tim", "Usman"], 
+	["Adrian", "Harriet"]]
 
-
+def random_pairing_new(names, *paired_list)
+	pairs = paired_list.flatten(1)
+	results = []; existing_pairs = {}
+	pairs.each do |pairs|
+		if existing_pairs.has_key?(pairs[0])
+			existing_pairs[pairs[0]] << pairs[1]
+		else
+			existing_pairs[pairs[0]] = []
+			existing_pairs[pairs[0]] << pairs[1]
+		end
+		if existing_pairs.has_key?(pairs[1])
+			existing_pairs[pairs[1]] << pairs[0]
+		else
+			existing_pairs[pairs[1]] = []
+			existing_pairs[pairs[1]] << pairs[0]
+		end
+	end
+	#p existing_pairs   #uncomment to see the existing pair hash, 
+	
+	while names.length >= 2
+		name = names[0]
+		pair_array = []
+		pair_array << name
+		hat = names - existing_pairs[name]
+		hat.delete(name)
+		index = rand(0..hat.length-1)
+		pair_array << hat[index]
+		names.delete(hat[index])
+		names.delete(names[0])	
+		results << pair_array
+		existing_pairs[pair_array[0]] << pair_array[1]
+		existing_pairs[pair_array[1]] << pair_array[0]
+	end
+	
+	return results 
+end
+p random_pairing_new(people, pairing1,pairing2)
