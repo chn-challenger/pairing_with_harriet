@@ -144,7 +144,16 @@ def random_pairing_new(names, pairs)
 	end
 	return existing_pairs
 end
- p random_pairing_new(people, pairing1)
+# p random_pairing_new(people, pairing1)
+
+array1 = [1,3,4,5,6]
+array2 = [3,4,7]
+p array1.delete(3)
+p array1
+
+
+
+
 
 
 
