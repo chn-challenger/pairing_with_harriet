@@ -118,7 +118,7 @@ end
 ####################################
 
 
-people = ['Harriet','Lucy','Joe','Tim','Sarah','Usman','Matt','Adrian','Yana']
+people = ['Yana','Harriet','Lucy','Joe','Tim','Sarah','Usman','Matt','Adrian']
 pairing1 = [["Yana", "Joe"],["Joe","Usman"], ["Usman", "Matt"], ["Adrian", "Sarah"], 
 	["Lucy", "Tim"], ["Sarah", "Yana"], ["Lucy", "Matt"], ["Tim", "Usman"], 
 	["Adrian", "Harriet"]]
@@ -126,6 +126,7 @@ pairing1 = [["Yana", "Joe"],["Joe","Usman"], ["Usman", "Matt"], ["Adrian", "Sara
 pairs = {'Joe' => ['Harriet', 'Yana'],'Harriet' => ['Joe', 'Sarah']}
 
 def random_pairing_new(names, pairs)
+	results = []
 	existing_pairs = {}
 	pairs.each do |pairs|
 		if existing_pairs.has_key?(pairs[0])
@@ -142,7 +143,21 @@ def random_pairing_new(names, pairs)
 		end
 		
 	end
-	return existing_pairs
+	
+	names.each do |name|
+		pair_array = []
+		pair_array << name
+		hat = names - existing_pairs[name]
+		hat.delete(name)
+	
+
+		index = rand(0..hat.length-1)
+		pair_array << hat[index]
+		results << pair_array
+	
+
+	end
+	return results 
 end
 # p random_pairing_new(people, pairing1)
 
