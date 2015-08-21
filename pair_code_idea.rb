@@ -39,25 +39,73 @@ end
 people = ['Harriet','Lucy','Joe','Tim','Sarah','Usman','Matt','Adrian','Yana']
 pairing1 = [["Yana", "Joe"], ["Usman", "Matt"], ["Adrian", "Sarah"], ["Lucy", "Tim"]]
 pairing2 = [["Sarah", "Yana"], ["Lucy", "Matt"], ["Tim", "Usman"], ["Adrian", "Harriet"]]
-#p random_pair1(people)
 
-# p random_pair(people)
 
 
 
 def new_pairing(names_array,*paired_names)
+	original_people_array = names_array
+	original_paired_names = paired_names
+
+
 	new_pair = random_pair(names_array)
 	new_pair.each do |pair| 
 		pair.sort!
 	end
-	p new_pair
+	#p new_pair
+	existing_pairs = paired_names.each do |pair| 
+		pair.sort!
+	end
+	#p existing_pairs
+
+	p names_array
+
+	for i in 0...new_pair.length do
+		for j in 0...existing_pairs.length do
+			if existing_pairs[j] == new_pair[i]
+				return new_pairing(original_people_array,original_paired_names)
+			end
+		end
+	end
+
+
+
+	return new_pair
+
+end
+
+
+
+
+
+def new_pairing1(names_array,*paired_names)
+	original_people_array = names_array
+	original_paired_names = paired_names
+
+
+	new_pair = random_pair(names_array)
+	new_pair.each do |pair| 
+		pair.sort!
+	end
+	#p new_pair
 	existing_pairs = paired_names.flatten(1).each do |pair| 
 		pair.sort!
-	
-	#return nil
 	end
-	p existing_pairs 
-	return nil
+	#p existing_pairs
+
+	p names_array
+
+	for i in 0...new_pair.length do
+		for j in 0...existing_pairs.length do
+			if existing_pairs[j] == new_pair[i]
+				return new_pairing(original_people_array,original_paired_names)
+			end
+		end
+	end
+
+
+
+	return new_pair
 	#*paired_names (splat) will be arrays of paired names of the pairing that already taken
 	#place.  There may be more than one say:  [["Harry","James"],["Amy","David"]],
 	#[["Harry","David"],["Yang","Bradley"],["Lisa","Olivia"]].
