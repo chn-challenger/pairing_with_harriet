@@ -68,11 +68,9 @@ def random_pair array
 end
 
 
-people = ['Harriet','Lucy','Joe','Tim','Sarah','Usman','Matt','Adrian','Yana']
-pairing1 = [["Yana", "Joe"], ["Usman", "Matt"], ["Adrian", "Sarah"], ["Lucy", "Tim"], ["Sarah", "Yana"], ["Lucy", "Matt"], ["Tim", "Usman"], ["Adrian", "Harriet"]]
 
 
-def new_pairing(names_array,paired_names)
+def new_pairing(names_array, paired_names)
 	original_people_array = []
 	names_array.each do |name|
 			original_people_array << name
@@ -114,8 +112,39 @@ def new_pairing(names_array,paired_names)
 	#for best practice: try to make the script efficient (fast) as possible.
 end
 
-p new_pairing(people, pairing1)
+#p new_pairing(people, pairing1)
 
-#p new_pairing(['A','B','C','D','E','F'],[['A','C'],['B','D']],[[],[],[]])
 
-#[[],[],[]]
+####################################
+
+
+people = ['Harriet','Lucy','Joe','Tim','Sarah','Usman','Matt','Adrian','Yana']
+pairing1 = [["Yana", "Joe"],["Joe","Usman"], ["Usman", "Matt"], ["Adrian", "Sarah"], 
+	["Lucy", "Tim"], ["Sarah", "Yana"], ["Lucy", "Matt"], ["Tim", "Usman"], 
+	["Adrian", "Harriet"]]
+
+pairs = {'Joe' => ['Harriet', 'Yana'],'Harriet' => ['Joe', 'Sarah']}
+
+def random_pairing_new(names, pairs)
+	existing_pairs = {}
+	pairs.each do |pairs|
+		if existing_pairs.has_key?(pairs[0])
+			existing_pairs[pairs[0]] << pairs[1]
+		else
+			existing_pairs[pairs[0]] = []
+			existing_pairs[pairs[0]] << pairs[1]
+		end
+		if existing_pairs.has_key?(pairs[1])
+			existing_pairs[pairs[1]] << pairs[0]
+		else
+			existing_pairs[pairs[1]] = []
+			existing_pairs[pairs[1]] << pairs[0]
+		end
+		
+	end
+	return existing_pairs
+end
+ p random_pairing_new(people, pairing1)
+
+
+
