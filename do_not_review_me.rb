@@ -200,7 +200,7 @@ def test3  #think of it as 10 football teams, and this is the LAST day of the le
 	p "let's try version 2..."
 	p random_pairing_v2(array1, test1, test2, test3, test4, test5, test6, test7, test8)
 end
-
+test3
 #uncomment to run tests one at a time
 #test2
 #test1
